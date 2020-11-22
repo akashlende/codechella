@@ -5,6 +5,7 @@
 # 5. Comment Fake or not
 
 import pandas as pd
+import env
 import requests
 import cv2
 from inference_scripts.predict_folder import classify
@@ -36,7 +37,7 @@ def getTweets():
 
     payload={}
     headers = {
-    'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAHZ7JwEAAAAAtMhQwVTRQtav1qbhreIQpx8mbH8%3Do5T9Gv462jf4MoJOAJ19oRnLMWmXmOeHqzpp0HzX9ovNm7I0SI',
+    'Authorization': env.bearer_token,
     'Cookie': 'personalization_id="v1_VIUj6hiI6FiSRMW4xROMgQ=="; guest_id=v1%3A159091927093030167'
     }
 
@@ -70,8 +71,8 @@ def download_video(video_link):
 def comment(id, message):
     url = 'https://api.twitter.com/1.1/statuses/update.json'
 
-    auth = OAuth1("dVbvxSAZtYVTlxseQKWoBG2eI", "tgu6HAn8hV6W0JGNfJEWnGc778Zt06MOikkRIovpARq5vwuzFg",
-                  "1060240040045903872-J4LIx2MarbGPiQ0OqHX2Y4x5apBhlY", "f6vGF9OBjtpzqR7cxVS7frIVOO5QpHi3wWb6gIVFCNTAP")
+    auth = OAuth1(env.consumer_key,env.consumer_secret,
+                    env.access_token,env.token_secret)
     params = {
         'status': message,
         'in_reply_to_status_id': id,
